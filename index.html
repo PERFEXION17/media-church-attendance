@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+    <title>Media Church | Attendance</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <a href="index.html"
+            ><img src="imgs/logo.webp" alt="media church logo"
+          /></a>
+        </div>
+        <!-- <div class="links"><a href="#">Contact Us</a></div> -->
+      </nav>
+    </header>
+
+    <main class="app-container">
+      <h1>ATTENDANCE TRACKER</h1>
+
+      <section id="att-con" class="att_con">
+        <article id="att-header" class="att_row header"></article>
+        <article id="att-body"></article>
+      </section>
+
+      <section id="att-btns" class="att_btns">
+        <input type="text" id="name-input" placeholder="Enter Student Name" />
+        <button id="att-add" class="att_add"><i class="ph ph-plus"></i></button>
+        <button id="att-del" class="att_del">
+          <i class="ph ph-trash-simple"></i>
+        </button>
+        <button id="add-day" class="day-btn" title="Add a Day">
+          <i class="ph ph-calendar-plus"></i>
+        </button>
+        <button id="rm-day" class="day-btn" title="Remove Last Day">
+          <i class="ph ph-calendar-minus"></i>
+        </button>
+      </section>
+    </main>
+    <footer></footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
