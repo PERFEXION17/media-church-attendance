@@ -1,6 +1,5 @@
-// Retrieve stored data or set defaults
 let students = JSON.parse(localStorage.getItem("attendanceData")) || [];
-let totalDays = parseInt(localStorage.getItem("totalDays")) || 24;
+let totalDays = parseInt(localStorage.getItem("totalDays")) || 2;
 
 const nameInput = document.getElementById("name-input");
 const addBtn = document.getElementById("att-add");
@@ -119,12 +118,10 @@ clearBtn.onclick = () => {
   }
 };
 
-// --- THE BUG FIX: Keyboard Event Logic ---
-// We remove any raw .onkeydown assignments and use an isolated event listener
 nameInput.onkeydown = null;
 nameInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    e.preventDefault(); // Prevents input glitches or accidental form submission
+    e.preventDefault(); 
     add();
   }
 });
