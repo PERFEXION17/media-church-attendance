@@ -1,0 +1,82 @@
+.dash_list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.student-card {
+  background: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  /* border-radius: var(--border-radius); */
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.student-card:hover {
+  background: var(--row-hover);
+}
+
+/* Card Header (Clickable) */
+.card-header {
+  padding: var(--spacing-xs);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-color);
+  cursor: pointer;
+}
+
+.card-header:hover {
+  background: var(--row-hover);
+}
+
+.card-name {
+  font-weight: var(--font-weight-light);
+  color: var(--text-color);
+}
+
+.card-pct {
+  font-weight: var(--font-weight-bold);
+}
+
+.card-notes {
+  padding: var(--spacing-md);
+  display: none;
+  background: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.card-notes.active {
+  display: block;
+}
+
+.note-input {
+  margin-bottom: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  width: 100%;
+  min-height: 100px;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: var(--font-size-ui);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  resize: vertical;
+  transition: var(--transition);
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: var(--text-color);
+}
+
+.save-note-btn {
+  width: 50px;
+  height: 50px;
+  background: var(--accent-color);
+  color: white;
+}
+
+.save-note-btn:hover {
+  opacity: 0.9;
+}
