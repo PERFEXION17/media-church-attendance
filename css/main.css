@@ -134,46 +134,56 @@ main {
 }
 
 .index-con {
+  position: relative;
   width: 100%;
   min-height: 88.3vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   background-image: url(/imgs/index-bg.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
 }
 
-.index-txt{
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.index-txt {
   padding: var(--spacing-md);
   width: 70%;
   color: #000;
 }
 
-.index-txt h3{
+.index-txt h3 {
   font-size: var(--font-size-h1);
   letter-spacing: var(--letter-spacing);
 }
 
-.index-txt h2{
+.index-txt h2 {
   font-size: 4.5rem;
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing);
 }
 
-.footer-index{
+.footer-index {
   color: #000;
 }
 
-.footer-index a{
+.footer-index a {
   color: #000;
   text-decoration: underline;
 }
 
 footer {
+  padding-left: var(--spacing-md);
   font-size: var(--font-size-ui);
 }
 
@@ -205,15 +215,15 @@ footer {
     letter-spacing: var(--letter-spacing-xs);
   }
 
-  .index-con{
+  .index-con {
     background-position: 75%;
   }
 
-  .index-txt h3{
+  .index-txt h3 {
     font-size: var(--font-size-icons);
   }
 
-  .index-txt h2{
+  .index-txt h2 {
     font-size: 3rem;
   }
 
@@ -222,7 +232,7 @@ footer {
     text-align: center;
   }
 
-  .footer-index{
+  .footer-index {
     text-align: left;
   }
 }
