@@ -1,10 +1,48 @@
-// 1. Fetch the exact same data from Local Storage
-let students = JSON.parse(localStorage.getItem("attendanceData")) || [];
-let totalDays = parseInt(localStorage.getItem("totalDays")) || 2;
-
+// 1. SELECTING HTML ELEMENTS
 const dashList = document.getElementById("dash-list");
+const logoutBtn = document.getElementById("logout-btn");
 
-// 2. Render the Dashboard
+// 2. GLOBAL STATE
+let students = [];
+let totalDays = 0;
+
+// 3. SECURITY GUARD & INITIALISATION
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log("Authenticated as:", user.email);
+    startSyncing();
+  } else {
+    window.location.href = "login.html";
+  }
+});
+
+// 4. THE DATA "LIVE WIRE" (Syncing both config and students)
+function startSyncing() {
+  // Sync the total days setting (to keep percentage accurate)
+  db.collection("config")
+    .doc("attendanceSettings")
+    .onSnapshot((doc) => {
+      if (doc.exists) {
+        totalDays = doc.data().totalDays;
+      } else {
+        totalDays = 2;
+      }
+      renderDashboard();
+    });
+
+  // Sync the student list and notes in real-time
+  db.collection("students")
+    .orderBy("createdAt", "asc")
+    .onSnapshot((snapshot) => {
+      students = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      renderDashboard();
+    });
+}
+
+// 5. RENDERING LOGIC (Keeping your accordion and styling)
 function renderDashboard() {
   dashList.innerHTML = "";
 
@@ -26,7 +64,6 @@ function renderDashboard() {
     else if (percent >= 75) colourClass = "pct-yellow";
     else colourClass = "pct-red";
 
-    // Ensure the student object has a note property (for older entries)
     const currentNote = student.note || "";
 
     // Build the Card
@@ -43,7 +80,7 @@ function renderDashboard() {
       </div>
       <div class="card-notes" id="notes-${index}">
         <textarea id="textarea-${index}" class="note-input" placeholder="Add progress notes for ${student.name}...">${currentNote}</textarea>
-        <button class="save-note-btn" onclick="saveNote(${index})" style="margin-bottom: 10px;"><i class="ph ph-note"></i></button>
+        <button class="save-note-btn" onclick="saveNote('${student.id}', ${index})" style="margin-bottom: 10px;"><i class="ph ph-note"></i></button>
         <span id="status-${index}" style="color: #16a34a; font-size: 1rem; display: none;">Saved!</span>
       </div>
     `;
@@ -52,29 +89,39 @@ function renderDashboard() {
   });
 }
 
-// 3. Toggle Accordion Visibility
+// 6. ACTION LOGIC (Updating Firestore)
+
 window.toggleNotes = (index) => {
   const notesContainer = document.getElementById(`notes-${index}`);
   notesContainer.classList.toggle("active");
 };
 
-// 4. Save Note Logic
-window.saveNote = (index) => {
+// We now pass the Firestore ID to ensure we update the correct document
+window.saveNote = async (id, index) => {
   const textarea = document.getElementById(`textarea-${index}`);
   const statusText = document.getElementById(`status-${index}`);
+  const newNote = textarea.value;
 
-  // Update the specific student's note in our array
-  students[index].note = textarea.value;
+  try {
+    // Update ONLY the note field in the cloud
+    await db.collection("students").doc(id).update({
+      note: newNote,
+    });
 
-  // Save the entire updated array back to Local Storage
-  localStorage.setItem("attendanceData", JSON.stringify(students));
-
-  // Show brief visual feedback to the admin
-  statusText.style.display = "inline";
-  setTimeout(() => {
-    statusText.style.display = "none";
-  }, 2000);
+    // Visual feedback
+    statusText.style.display = "inline";
+    setTimeout(() => {
+      statusText.style.display = "none";
+    }, 2000);
+  } catch (error) {
+    console.error("Error saving note:", error);
+    alert("Failed to save note. Please check your connection.");
+  }
 };
 
-// Start the Dashboard
-renderDashboard();
+// Logout Function
+if (logoutBtn) {
+  logoutBtn.onclick = () => {
+    auth.signOut().then(() => console.log("Signed out."));
+  };
+}

@@ -11,6 +11,11 @@
       href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
     />
     <title>Media Church | Student Hub</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
   </head>
   <body>
     <header>
@@ -49,8 +54,19 @@
               >PERFEXION INC.</a
             >
           </footer>
+
+          <button
+            id="logout-btn"
+            class="att_add"
+            style="background-color: var(--danger-color); margin-left: auto"
+          >
+            <i class="ph ph-sign-out"></i>
+          </button>
         </div>
       </section>
     </main>
+
+    <!-- <script src="attendance.js"></script> -->
+    <!-- <script src="dashboard.js"></script> -->
   </body>
 </html>

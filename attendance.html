@@ -4,13 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="shortcut icon" href="imgs/logo.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="imgs/logo.webp" type="image/x-icon" />
     <link
       rel="stylesheet"
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
     />
     <title>Media Church | Attendance</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
   </head>
   <body>
     <header>
@@ -50,12 +55,23 @@
           <i class="ph ph-calendar-minus"></i>
         </button>
       </section>
-
-
     </main>
     <footer>
-      &copy; 2026 All Rights Reserved <a href="https://media-church.com" target="_blank">Media Church</a> | <a href="https://wa.me/2348100334346?text=Hello%20Mr.%20Joseph.%20I%20am%20interested%20in%20your%20sevices." target="_blank">PERFEXION INC.</a>
+      &copy; 2026 All Rights Reserved
+      <a href="https://media-church.com" target="_blank">Media Church</a> |
+      <a
+        href="https://wa.me/2348100334346?text=Hello%20Mr.%20Joseph.%20I%20am%20interested%20in%20your%20sevices."
+        target="_blank"
+        >PERFEXION INC.</a
+      >
     </footer>
+    <button
+      id="logout-btn"
+      class="att_add"
+      style="background-color: var(--danger-color); margin-left: auto"
+    >
+      <i class="ph ph-sign-out"></i>
+    </button>
 
     <script src="attendance.js"></script>
   </body>
